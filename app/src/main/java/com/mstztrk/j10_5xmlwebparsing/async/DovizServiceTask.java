@@ -3,6 +3,7 @@ package com.mstztrk.j10_5xmlwebparsing.async;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -40,7 +41,7 @@ public class DovizServiceTask extends AsyncTask<String, String, ArrayList<Doviz>
     protected void onPreExecute() {
         //ilk çalışan metottur.
         //task çalışmadan önce yapılacak hazırlık işlemleri burada tanımlanır.
-        progressDialog = progressDialog.show(context, "Lütfen Bekleyiniz", "Suncuyla bağlantı kuruluyor", true);
+        progressDialog = progressDialog.show(context, "Lütfen Bekleyiniz", "Suncuyla bağlantı kuruluyor", true, true);
     }
 
     @Override
@@ -68,17 +69,18 @@ public class DovizServiceTask extends AsyncTask<String, String, ArrayList<Doviz>
                 for (int i = 0; i < dovizNodeList.getLength() - 1; i++) {
                     Element element = (Element) dovizNodeList.item(i);
                     Doviz yeniDoviz = new Doviz();
-                    String birim = element.getElementsByTagName("Unit").item(0).getFirstChild().getNodeName();
+                    String birim = element.getElementsByTagName("Unit").item(0).getFirstChild().getNodeValue();
                     yeniDoviz.setBirim(birim);
 
-                    String isim = element.getElementsByTagName("Isim").item(0).getFirstChild().getNodeName();
+                    String isim = element.getElementsByTagName("Isim").item(0).getFirstChild().getNodeValue();
                     yeniDoviz.setIsim(isim);
 
-                    double alis = Double.valueOf(element.getElementsByTagName("ForexBuying").item(0).getFirstChild().getNodeName());
-                    double satis = Double.valueOf(element.getElementsByTagName("ForexSelling").item(0).getFirstChild().getNodeName());
+                    double alis = Double.valueOf(element.getElementsByTagName("ForexBuying").item(0).getFirstChild().getNodeValue());
+                    double satis = Double.valueOf(element.getElementsByTagName("ForexSelling").item(0).getFirstChild().getNodeValue());
 
                     yeniDoviz.setAlis(alis);
                     yeniDoviz.setSatis(satis);
+
                     dovizler.add(yeniDoviz);
                 }
                 publishProgress("Liste güncelleniyor");
@@ -88,6 +90,7 @@ public class DovizServiceTask extends AsyncTask<String, String, ArrayList<Doviz>
             return dovizler;
         } catch (Exception ex) {
             Toast.makeText(context, "XML Okuma Hatası", Toast.LENGTH_SHORT).show();
+            Log.e("DovizTask", ex.getMessage());
             return null;
         } finally {
             if (baglanti != null)
