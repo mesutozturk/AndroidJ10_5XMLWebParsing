@@ -1,8 +1,11 @@
 package com.mstztrk.j10_5xmlwebparsing;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.mstztrk.j10_5xmlwebparsing.async.DovizServiceTask;
@@ -20,6 +23,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listView = (ListView) findViewById(R.id.listView);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Doviz seciliDoviz = dovizler.get(position);
+                //Toast.makeText(MainActivity.this, seciliDoviz.toString(), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), DovizActivity.class);
+                intent.putExtra("doviz", seciliDoviz);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

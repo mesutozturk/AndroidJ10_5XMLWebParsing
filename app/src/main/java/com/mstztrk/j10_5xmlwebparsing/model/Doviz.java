@@ -1,10 +1,12 @@
 package com.mstztrk.j10_5xmlwebparsing.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Mesut on 16.10.2017.
  */
 
-public class Doviz {
+public class Doviz implements Serializable {
     private String birim, isim;
     private double alis, satis;
 
@@ -42,6 +44,6 @@ public class Doviz {
 
     @Override
     public String toString() {
-        return String.format("%s %s\nAlış: %.4f ₺\nSatış: %.4f ₺",birim,isim,alis,satis);
+        return String.format("%s %s\nAlış: %.4f ₺\nSatış: %.4f ₺", birim, isim, alis, satis);
     }
 }
