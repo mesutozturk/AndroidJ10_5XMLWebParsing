@@ -39,4 +39,9 @@ public class Doviz {
     public void setSatis(double satis) {
         this.satis = satis;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s\nAlış: %.4f ₺\nSatış: %.4f ₺",birim,isim,alis,satis);
+    }
 }

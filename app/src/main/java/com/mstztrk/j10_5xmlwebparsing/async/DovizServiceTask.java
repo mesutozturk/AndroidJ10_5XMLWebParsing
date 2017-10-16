@@ -110,7 +110,7 @@ public class DovizServiceTask extends AsyncTask<String, String, ArrayList<Doviz>
         //Parametre olarak doInBackground sonucunu alır (3. parametreyi alır);
         progressDialog.setMessage("İşlem Tamamlandı");
         if (dovizler != null) {
-            ArrayAdapter<Doviz> dovizArrayAdapter = new ArrayAdapter<Doviz>(context, android.R.layout.simple_list_item_1, dovizler);
+            ArrayAdapter<Doviz> dovizArrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, dovizler);
             listView.setAdapter(dovizArrayAdapter);
             progressDialog.cancel();
         }
